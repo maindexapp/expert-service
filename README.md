@@ -1,22 +1,51 @@
-# Maindex Expert
+# Maindex Expert MCP Server
 
-**Full-fidelity memory for AI agents who demand precision.**
+This is the official Maindex Expert MCP server published by [Maindex](https://maindex.io).
 
-Maindex Expert is the complete MCP interface — 14 tools and 6 resources that give AI agents direct, granular control over a persistent knowledge graph. Typed associations, collections, bulk operations, semantic search, supersession chains, and more.
+Maindex Expert is a hosted remote MCP service. No local installation is required.
 
-When asked, 10 out of 10 LLMs said they prefer the Expert interface over Smart because of the additional control it gives them.
+[Website](https://maindex.io) | [Help & FAQ](https://maindex.io/help) | [Dashboard](https://maindex.io/dashboard)
+
+Maindex Expert is the full-control MCP interface for capable agents and advanced workflows. It exposes structured memory, search, filtering, relationships, collections, revisions, supersession, and bulk maintenance operations — 14 tools and 6 resources that give AI agents direct, granular control over a persistent knowledge graph.
 
 Both Smart and Expert services are included with every Maindex plan at no additional cost. They read and write the same memory graph, and you can switch between them or use both simultaneously.
 
-**MCP Endpoint:** `https://expert.maindex.io/mcp`
+## Endpoint
 
----
+`https://expert.maindex.io/mcp`
 
-## Quick Start
+## Tools
 
-### 1. Connect your agent
+- `memory.keep` — create a structured memory entry.
+- `memory.update` — update an existing memory and create a revision.
+- `memory.forget` — soft-delete a memory.
+- `memory.recall` — retrieve a single memory by ID.
+- `memory.list` — list memories using structured filters.
+- `memory.search` — search memories using lexical, semantic, or hybrid retrieval.
+- `memory.associate` — create typed links between memories.
+- `memory.get_related` — discover related memories by link, tag, or collection.
+- `memory.supersede` — replace an existing memory with a new canonical entry.
+- `memory.bulk_keep` — create multiple memories in one call.
+- `memory.bulk_update` — batch-update multiple memories.
+- `collection.manage` — create, update, delete, list, and manage memory collections.
+- `collection.unlock` — unlock locked memory collections for the session using a passphrase.
+- `system.report_bug` — report a bug to Maindex maintainers.
 
-Add the Maindex Expert MCP server to your AI platform of choice:
+## Installation
+
+Use the hosted endpoint in any MCP client that supports remote streamable HTTP MCP servers.
+
+```json
+{
+  "mcpServers": {
+    "maindex-expert": {
+      "url": "https://expert.maindex.io/mcp"
+    }
+  }
+}
+```
+
+Or install a platform-specific plugin:
 
 | Platform | How to connect |
 |---|---|
@@ -24,53 +53,14 @@ Add the Maindex Expert MCP server to your AI platform of choice:
 | **Claude** | Clone and install [claude-expert-plugin](https://github.com/maindexapp/claude-expert-plugin) |
 | **Gemini** | Install [gemini-expert-plugin](https://github.com/maindexapp/gemini-expert-plugin) as a Gemini Extension |
 | **OpenClaw** | Install [openclaw-expert-plugin](https://github.com/maindexapp/openclaw-expert-plugin) |
-| **Any MCP client** | Point your MCP client at `https://expert.maindex.io/mcp` (Streamable HTTP transport, OAuth 2.1) |
 
-### 2. Authenticate
+## Example Usage
 
-On first connection, you'll be redirected to [maindex.io](https://maindex.io) to sign in and authorize. OAuth handles the rest.
-
-### 3. Start building your knowledge graph
-
-Expert gives your agent fine-grained control. Create memories with rich metadata, build typed associations between them, organize with collections, search with full-text + semantic + hybrid retrieval, and manage everything with bulk operations.
-
----
-
-## Tools
-
-### Memory Management
-
-| Tool | Description |
-|---|---|
-| `memory.keep` | Create a new memory with headline, body, kind, tags, collections, confidence, inline links, and more. |
-| `memory.update` | Revise an existing memory (modes: body_append, body_replace, headline_replace, headline_and_body_replace, revision_only). Full history preserved. |
-| `memory.forget` | Soft-delete a memory (restorable). Idempotent. |
-| `memory.supersede` | Atomic replace — creates the new memory, marks the old one deprecated, creates a supersedes link, inherits tags. |
-| `memory.bulk_keep` | Batch create up to 100 memories with shared defaults. Auto-links batch members. |
-| `memory.bulk_update` | Batch operations: add/remove tags, set kind/canon_status/verification_status, manage collection membership, merge metadata, add links, or soft-delete. |
-
-### Retrieval
-
-| Tool | Description |
-|---|---|
-| `memory.search` | Full-text and semantic search. Strategies: auto, lexical, semantic, hybrid. Filters by tags, kind, canon_status, collection, confidence range, verification_status. Score breakdowns and graph neighbor expansion available. |
-| `memory.list` | Structured filter and browse. Same filter set as search but no free-text query — use for browsing by criteria. |
-| `memory.recall` | Get a single memory by UUID or short ID (e.g. `mem-1jc4`). Optionally include revisions and links. |
-
-### Graph & Organization
-
-| Tool | Description |
-|---|---|
-| `memory.associate` | Create typed links between memories. Relation types: supports, contradicts, depends_on, expands, derived_from, example_of, belongs_to, alternative_to, supersedes, and custom. Inverse links auto-created. |
-| `memory.get_related` | Discover related memories via links, shared tags, or collection membership. |
-| `collection.manage` | Multi-action tool: create, update, delete, add_members, remove_members, list, get. Collections support nesting, icons, colors, and descriptions. |
-| `collection.unlock` | Unlock passphrase-protected collections for the current session. |
-
-### System
-
-| Tool | Description |
-|---|---|
-| `system.report_bug` | Report bugs directly to the Maindex team with severity, category, reproduction steps, and context. |
+- `Search my memories about the Smart MCP rollout.`
+- `Create a memory and tag it project:maindex.`
+- `Link these two memories because one supports the other.`
+- `Show the revision history for mem-abc123.`
+- `Supersede the old pricing decision with the new accepted one.`
 
 ---
 
@@ -139,9 +129,9 @@ Maindex gives you a structured, searchable memory graph accessible through both 
 
 ### Should I use Smart or Expert?
 
-Both are included, both read and write the same memory graph, and you can switch at any time. Use **Expert** when the agent needs direct, granular control. Use **Smart** when you want the agent to send high-level intents and let the pipeline decide.
+Both are included, both read and write the same memory graph, and you can switch at any time. Smart is optimized for simple user-controlled memory. Expert is optimized for capable agents that need direct control over the full memory graph.
 
-See the [Smart service](https://github.com/maindexapp/smart-service) for the streamlined 4-tool API.
+For a smaller, safety-constrained interface, use Maindex Smart at `https://maindex.io/mcp`. See the [Smart service](https://github.com/maindexapp/smart-service) for the streamlined 4-tool API.
 
 ### What are synapses?
 
@@ -179,4 +169,8 @@ Every account is a fully isolated tenant. Your data is never shared, mixed, or a
 
 - [Smart Service](https://github.com/maindexapp/smart-service) — Streamlined 4-tool interface
 - [maindex.io](https://maindex.io) — Dashboard and account management
-- [Documentation](https://docs.maindex.io)
+- [Help & FAQ](https://maindex.io/help)
+
+## License
+
+MIT
