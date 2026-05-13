@@ -6,7 +6,7 @@ Maindex Expert is a hosted remote MCP service. No local installation is required
 
 [Website](https://maindex.io) | [Help & FAQ](https://maindex.io/help) | [Dashboard](https://maindex.io/dashboard)
 
-Maindex Expert is the full-control MCP interface for capable agents and advanced workflows. It exposes structured memory, search, filtering, relationships, collections, revisions, supersession, and bulk maintenance operations — 14 tools and 6 resources that give AI agents direct, granular control over a persistent knowledge graph.
+Maindex Expert is the full-control MCP interface for capable agents and advanced workflows. It exposes structured memory, search, filtering, relationships, collections, revisions, supersession, and bulk maintenance operations — 14 tools and 5 resources that give AI agents direct, granular control over a persistent knowledge graph.
 
 Both Smart and Expert services are included with every Maindex plan at no additional cost. They read and write the same memory graph, and you can switch between them or use both simultaneously.
 
@@ -16,20 +16,20 @@ Both Smart and Expert services are included with every Maindex plan at no additi
 
 ## Tools
 
-- `memory.keep` — create a structured memory entry.
-- `memory.update` — update an existing memory and create a revision.
-- `memory.forget` — soft-delete a memory.
-- `memory.recall` — retrieve a single memory by ID.
-- `memory.list` — list memories using structured filters.
-- `memory.search` — search memories using lexical, semantic, or hybrid retrieval.
-- `memory.associate` — create typed links between memories.
-- `memory.get_related` — discover related memories by link, tag, or collection.
-- `memory.supersede` — replace an existing memory with a new canonical entry.
-- `memory.bulk_keep` — create multiple memories in one call.
-- `memory.bulk_update` — batch-update multiple memories.
-- `collection.manage` — create, update, delete, list, and manage memory collections.
-- `collection.unlock` — unlock locked memory collections for the session using a passphrase.
-- `system.report_bug` — report a bug to Maindex maintainers.
+- `memory_keep` — create a structured memory entry.
+- `memory_update` — update an existing memory and create a revision.
+- `memory_forget` — soft-delete a memory.
+- `memory_recall` — retrieve a single memory by ID.
+- `memory_list` — list memories using structured filters.
+- `memory_search` — search memories using lexical, semantic, or hybrid retrieval.
+- `memory_associate` — create typed links between memories.
+- `memory_get_related` — discover related memories by link, tag, or collection.
+- `memory_supersede` — replace an existing memory with a new canonical entry.
+- `memory_bulk_keep` — create multiple memories in one call.
+- `memory_bulk_update` — batch-update multiple memories.
+- `collection_manage` — create, update, delete, list, and manage memory collections.
+- `collection_unlock` — unlock locked memory collections for the session using a passphrase.
+- `system_report_bug` — report a bug to Maindex maintainers.
 
 ## Installation
 
@@ -115,7 +115,7 @@ Every memory has both a UUID and a short ID (e.g. `mem-1jc4`). Short IDs are hum
 
 ### Superseding
 
-When a fact or decision changes, use `memory.supersede` rather than delete-and-recreate. The old memory is marked deprecated with a `superseded_by` pointer, and a `supersedes` link is created automatically — preserving the full history chain.
+When a fact or decision changes, use `memory_supersede` rather than delete-and-recreate. The old memory is marked deprecated with a `superseded_by` pointer, and a `supersedes` link is created automatically — preserving the full history chain.
 
 ---
 
@@ -139,7 +139,7 @@ A synapse is a single unit of memory usage. Every time an agent or API call read
 
 ### What are locked collections?
 
-A locked collection is protected by a passphrase. Memories inside are hidden from all sessions and API calls until explicitly unlocked with `collection.unlock`. This lets you compartmentalize information (work vs personal, private notes, client data) without exposing it to every agent session.
+A locked collection is protected by a passphrase. Memories inside are hidden from all sessions and API calls until explicitly unlocked with `collection_unlock`. This lets you compartmentalize information (work vs personal, private notes, client data) without exposing it to every agent session.
 
 ### Can I export my data?
 
