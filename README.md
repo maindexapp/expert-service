@@ -6,7 +6,7 @@ Maindex Expert is a hosted remote MCP service. No local installation is required
 
 [Website](https://maindex.io) | [Help & FAQ](https://maindex.io/help) | [Dashboard](https://maindex.io/dashboard)
 
-Maindex Expert is the full-control MCP interface for capable agents and advanced workflows. It exposes structured memory, search, filtering, relationships, collections, revisions, supersession, and bulk maintenance operations — 14 tools and 5 resources that give AI agents direct, granular control over a persistent knowledge graph.
+Maindex Expert is the full-control MCP interface for capable agents and advanced workflows. It exposes structured memory, search, filtering, relationships, collections, revisions, supersession, and bulk maintenance operations — 15 tools and 5 resources that give AI agents direct, granular control over a persistent knowledge graph.
 
 Both Smart and Expert services are included with every Maindex plan at no additional cost. They read and write the same memory graph, and you can switch between them or use both simultaneously.
 
@@ -23,6 +23,7 @@ Both Smart and Expert services are included with every Maindex plan at no additi
 - `memory_list` — list memories using structured filters.
 - `memory_search` — search memories using lexical, semantic, or hybrid retrieval.
 - `memory_associate` — create typed links between memories.
+- `memory_unassociate` — remove typed links between memories (by link ID or memory triple).
 - `memory_get_related` — discover related memories by link, tag, or collection.
 - `memory_supersede` — replace an existing memory with a new canonical entry.
 - `memory_bulk_keep` — create multiple memories in one call.
@@ -116,6 +117,31 @@ Every memory has both a UUID and a short ID (e.g. `mem-1jc4`). Short IDs are hum
 ### Superseding
 
 When a fact or decision changes, use `memory_supersede` rather than delete-and-recreate. The old memory is marked deprecated with a `superseded_by` pointer, and a `supersedes` link is created automatically — preserving the full history chain.
+
+---
+
+## Teams Workspaces
+
+Team workspaces let multiple members share a scoped memory graph within your account. Expert tools support team context on reads and writes:
+
+### Team filter on read tools
+
+Optional `team` parameter on `memory_search`, `memory_recall`, `memory_list`, and `collection_manage` (list/get):
+
+- **Omit** — mixed personal + team results (default)
+- **`personal`** — personal memories only
+- **Team slug** — limit results to that team workspace
+
+### Team writes
+
+- **`memory_keep`** — set both `team` and `collection` to create a memory in a team collection. The personal `collections[]` array remains for personal multi-collection writes.
+- **`collection_manage`** — use action `create_team_collection` (with `team` and collection name/slug) to create a collection inside a team workspace.
+
+Other mutation tools (`memory_update`, `memory_forget`, etc.) operate on existing memories by ID; use team-namespaced IDs when targeting team-scoped memories.
+
+### Team-namespaced IDs
+
+Memories created in a team workspace use namespaced short IDs: `team-slug:mem-xxxx` (e.g. `acme:mem-j4`). Both bare `mem-xxxx` and namespaced forms are accepted where memory IDs are referenced. Team collection slugs may appear as `team-slug:collection-slug`.
 
 ---
 
